@@ -1,0 +1,14 @@
+[
+  {
+    color: "rojo",
+    valor: "#f00"
+  },
+  {
+    color: "verde",
+    "valor": "#0f0"
+  },
+  {
+    color: "azul",
+    "valor": "#00f"
+  }
+]
