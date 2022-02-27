@@ -1,6 +1,8 @@
 package parcero.uv.es;
 
-public class Municipality {
+import java.io.Serializable;
+
+public class Municipality implements Serializable {
     private int id;
     private int codMunicipality;
     private String nameMunicipality;
