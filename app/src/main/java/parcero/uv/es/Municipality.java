@@ -1,6 +1,6 @@
 package parcero.uv.es;
 
-public class Municipality {
+public class Municipality implements Comparable{
     private int id;
     private int codMunicipality;
     private String nameMunicipality;
@@ -108,5 +108,10 @@ public class Municipality {
                 ", deaths=" + deaths +
                 ", deathRate='" + deathRate + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object municipality) {
+        return  ((Municipality) municipality).getNumPCR() - this.getNumPCR();
     }
 }

@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAdapter.ViewHolder> {
     private ArrayList<Municipality> municipalities; //data to visualize
@@ -32,7 +33,7 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
             assert jsonString != null;
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray records = jsonObject.getJSONObject("result").getJSONArray("records");
-            for(int i = 0; i < records.length(); i++) {
+            for (int i = 0; i < records.length(); i++) {
                 municipalities.add(new Municipality(records.getJSONObject(i).getInt("_id"),
                         records.getJSONObject(i).getInt("CodMunicipio"),
                         records.getJSONObject(i).getString("Municipi"),
@@ -43,8 +44,9 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
                         records.getJSONObject(i).getInt("Defuncions"),
                         records.getJSONObject(i).getString("Taxa de defunció")));
             }
-            for (int i = 0; i<10; i++) {
-                System.out.println(municipalities.get(i));
+            Collections.sort(municipalities);
+            for (int i=0; i < 10; i++) {
+                System.out.println(municipalities.get(i).toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
