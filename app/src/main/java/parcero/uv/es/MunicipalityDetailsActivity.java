@@ -1,13 +1,41 @@
 package parcero.uv.es;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MunicipalityDetailsActivity extends AppCompatActivity {
+
+    private Municipality municipality;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.municipality_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.open_map:
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q="+municipality.getNameMunicipality().replace(' ', '+'));
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +53,7 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
 
         try {
             Intent intent = getIntent();
-            Municipality municipality = (Municipality) intent.getSerializableExtra("Municipality");
+            municipality = (Municipality) intent.getSerializableExtra("Municipality");
             System.out.println(municipality.toString());
 
             mun_name = findViewById(R.id.mun_name);
