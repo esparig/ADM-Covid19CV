@@ -108,9 +108,9 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
 
     @Override
     public void onMunicipalityClick(View view, int position) {
-        System.out.println("CLICK!!" + adapter.getMunicipalities().get(position).toString());
+        System.out.println("CLICK!!" + municipalitiesAdapter.getMunicipalities().get(position).toString());
         Intent intent = new Intent(MunicipalitiesActivity.this, MunicipalityDetailsActivity.class);
-        intent.putExtra("Municipality", (Serializable) adapter.getMunicipalities().get(position));
+        intent.putExtra("Municipality", (Serializable) municipalitiesAdapter.getMunicipalities().get(position));
         startActivity(intent);
     }
 }
