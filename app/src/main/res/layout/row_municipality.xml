@@ -5,7 +5,10 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:contentPadding="5dp">
+    app:cardBackgroundColor="#1A00B8D4"
+    app:contentPadding="5dp"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"

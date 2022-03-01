@@ -1,8 +1,10 @@
 package parcero.uv.es;
 
 import java.util.Comparator;
+import java.io.Serializable;
 
-public class Municipality implements Comparable{
+
+public class Municipality implements Comparable, Serializable{
     private int id;
     private int codMunicipality;
     private String nameMunicipality;

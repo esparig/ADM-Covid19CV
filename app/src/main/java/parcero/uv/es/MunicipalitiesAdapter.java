@@ -22,6 +22,7 @@ import java.util.Comparator;
 public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAdapter.ViewHolder> {
     Context context;
     private ArrayList<Municipality> municipalities; //data to visualize
+    private static ItemClickListener itemClickListener;
 
     public ArrayList<Municipality> getMunicipalities() {
         return municipalities;
@@ -104,11 +105,20 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
         return municipalities.size();
     }
 
+    public interface ItemClickListener {
+        void onMunicipalityClick(View view, int position);
+        //void onMunicipalityClick(View view);
+    }
+
+    void setClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final CardView card;
         private final TextView municipality;
         private final TextView cases;
@@ -118,11 +128,18 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
 
         public ViewHolder(View view) {
             super(view);
+            view.setOnClickListener(this);
             card = view.findViewById(R.id.card);
             municipality = view.findViewById(R.id.mun_name);
             cases = view.findViewById(R.id.cases);
             deaths = view.findViewById(R.id.deaths);
             cases_14 = view.findViewById(R.id.cases_14);
+        }
+        
+        @Override
+        public void onClick(View view) {
+            if (itemClickListener != null)
+                itemClickListener.onMunicipalityClick(view, getAdapterPosition());
         }
 
         public CardView getCard() {

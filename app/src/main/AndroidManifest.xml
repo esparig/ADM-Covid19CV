@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Covid19CV">
         <activity
+            android:name=".MunicipalityDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MunicipalitiesActivity"
             android:exported="true">
             <intent-filter>
