@@ -15,4 +15,14 @@
     <string name="acumulado">ACUMULADO</string>
     <string name="fallecidos">PERSONAS FALLECIDAS</string>
     <string name="dias_14">14 DÍAS</string>
+
+    <!-- Strings for spinner (ordering dropdown list) -->
+    <string-array name="ordering">
+
+        <item>Orden alfabético (asc)</item>
+        <item>Orden alfabético (desc)</item>
+        <item>Orden por incidencia (asc)</item>
+        <item>Orden por indicencia (desc)</item>
+
+    </string-array>
 </resources>

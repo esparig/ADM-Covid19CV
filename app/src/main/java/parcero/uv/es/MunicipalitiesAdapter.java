@@ -17,10 +17,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAdapter.ViewHolder> {
     Context context;
     private ArrayList<Municipality> municipalities; //data to visualize
+
+    public ArrayList<Municipality> getMunicipalities() {
+        return municipalities;
+    }
 
     public MunicipalitiesAdapter(Context c) {
         context = c;

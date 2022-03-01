@@ -1,5 +1,7 @@
 package parcero.uv.es;
 
+import java.util.Comparator;
+
 public class Municipality implements Comparable{
     private int id;
     private int codMunicipality;
@@ -113,5 +115,33 @@ public class Municipality implements Comparable{
     @Override
     public int compareTo(Object municipality) {
         return  ((Municipality) municipality).getNumPCR() - this.getNumPCR();
+    }
+
+    public static class Comparators {
+
+        public static Comparator<Municipality> NAME_ASC = new Comparator<Municipality>() {
+            @Override
+            public int compare(Municipality o1, Municipality o2) {
+                return o1.getNameMunicipality().compareTo(o2.getNameMunicipality());
+            }
+        };
+        public static Comparator<Municipality> NAME_DESC = new Comparator<Municipality>() {
+            @Override
+            public int compare(Municipality o1, Municipality o2) {
+                return - o1.getNameMunicipality().compareTo(o2.getNameMunicipality());
+            }
+        };
+        public static Comparator<Municipality> INC_ASC = new Comparator<Municipality>() {
+            @Override
+            public int compare(Municipality o1, Municipality o2) {
+                return o1.getNumPCR() - o2.getNumPCR();
+            }
+        };
+        public static Comparator<Municipality> INC_DESC = new Comparator<Municipality>() {
+            @Override
+            public int compare(Municipality o1, Municipality o2) {
+                return - o1.getNumPCR() + o2.getNumPCR();
+            }
+        };
     }
 }
