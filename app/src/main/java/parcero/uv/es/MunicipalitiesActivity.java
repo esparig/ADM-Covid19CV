@@ -1,35 +1,37 @@
 package parcero.uv.es;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.SearchView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import android.util.Log;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-
-import java.util.Collections;
 import java.io.Serializable;
+import java.util.Collections;
 
 
 public class MunicipalitiesActivity extends AppCompatActivity implements MunicipalitiesAdapter.ItemClickListener {
     MunicipalitiesAdapter adapter;
+    MunicipalitiesAdapter municipalitiesAdapter;
+    String defaultValue = "Orden por indicencia (desc)";
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    MunicipalitiesAdapter municipalitiesAdapter;
-
+    private SearchManager searchManager;
+    private SearchView searchView;
     private Spinner spinnerOrdering;
-    String defaultValue = "Orden por indicencia (desc)";
     private ArrayAdapter<CharSequence> spinnerAdapter;
 
     @Override
@@ -66,6 +68,29 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        //Set up the Search bar
+        searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) findViewById(R.id.filter_search);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        // listening to search query text change
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // filter recycler view when query submitted
+                municipalitiesAdapter.getFilter().filter(query);
+                Log.v("onQueryTextSubmit: ", query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                // filter recycler view when text is changed
+                municipalitiesAdapter.getFilter().filter(query);
+                return false;
+            }
+        });
 
         //Set up the Spinner
         spinnerOrdering = findViewById(R.id.spinner_ordering);

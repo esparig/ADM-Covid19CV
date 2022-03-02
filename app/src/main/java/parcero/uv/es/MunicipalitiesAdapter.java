@@ -1,10 +1,12 @@
 package parcero.uv.es;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,20 +19,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
-public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAdapter.ViewHolder> {
+public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAdapter.ViewHolder> implements Filterable {
+    private static ItemClickListener itemClickListener;
     Context context;
     private ArrayList<Municipality> municipalities; //data to visualize
-    private static ItemClickListener itemClickListener;
-
-    public ArrayList<Municipality> getMunicipalities() {
-        return municipalities;
-    }
+    private ArrayList<Municipality> municipalities_filtered;
 
     public MunicipalitiesAdapter(Context c) {
         context = c;
         Init();
+    }
+
+    public ArrayList<Municipality> getMunicipalities() {
+        return municipalities;
     }
 
     public void Init() {
@@ -53,9 +55,7 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
                         records.getJSONObject(i).getString("Taxa de defunció")));
             }
             Collections.sort(municipalities);
-            for (int i = 0; i < 10; i++) {
-                System.out.println(municipalities.get(i).toString());
-            }
+            municipalities_filtered = municipalities; //copy??
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -75,12 +75,12 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        float incidence = Float.parseFloat(municipalities.get(position).getCumulativePCR14().replace(',', '.'));
+        float incidence = Float.parseFloat(municipalities_filtered.get(position).getCumulativePCR14().replace(',', '.'));
         holder.getCard().setBackgroundColor(getColorFromIncidence(incidence));
-        holder.getMunicipality().setText(String.valueOf(municipalities.get(position).getNameMunicipality()));
-        holder.getCases().setText(String.valueOf(municipalities.get(position).getNumPCR()));
-        holder.getDeaths().setText(String.valueOf(municipalities.get(position).getDeaths()));
-        holder.getCases_14().setText(String.valueOf(municipalities.get(position).getNumPCR14()));
+        holder.getMunicipality().setText(String.valueOf(municipalities_filtered.get(position).getNameMunicipality()));
+        holder.getCases().setText(String.valueOf(municipalities_filtered.get(position).getNumPCR()));
+        holder.getDeaths().setText(String.valueOf(municipalities_filtered.get(position).getDeaths()));
+        holder.getCases_14().setText(String.valueOf(municipalities_filtered.get(position).getNumPCR14()));
 
     }
 
@@ -88,12 +88,10 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
         int bkg;
         if (incidence < 300.0) {
             bkg = context.getResources().getColor(R.color.riesgo_bajo);
-        }
-        else {
+        } else {
             if (incidence < 500.0) {
                 bkg = context.getResources().getColor(R.color.riesgo_medio);
-            }
-            else {
+            } else {
                 bkg = context.getResources().getColor(R.color.riesgo_alto);
             }
         }
@@ -102,16 +100,48 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
 
     @Override
     public int getItemCount() {
-        return municipalities.size();
+        return municipalities_filtered.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty()) {
+                    municipalities_filtered = municipalities;
+                } else {
+                    Log.v("performFiltering: ", charSequence.toString());
+                    ArrayList<Municipality> filteredList = new ArrayList<>();
+                    for (Municipality row : municipalities) {
+                        if (row.getNameMunicipality().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+                    municipalities_filtered = filteredList;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = municipalities_filtered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                municipalities_filtered = (ArrayList<Municipality>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    void setClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     public interface ItemClickListener {
         void onMunicipalityClick(View view, int position);
         //void onMunicipalityClick(View view);
-    }
-
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
     }
 
     /**
@@ -135,7 +165,7 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
             deaths = view.findViewById(R.id.deaths);
             cases_14 = view.findViewById(R.id.cases_14);
         }
-        
+
         @Override
         public void onClick(View view) {
             if (itemClickListener != null)
