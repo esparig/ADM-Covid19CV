@@ -13,6 +13,9 @@
             android:name=".MunicipalityDetailsActivity"
             android:exported="false" />
         <activity
+            android:name=".ReportActivity"
+            android:exported="false" />
+        <activity
             android:name=".MunicipalitiesActivity"
             android:exported="true">
             <intent-filter>

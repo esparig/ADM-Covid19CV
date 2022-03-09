@@ -26,10 +26,10 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
 
     public MunicipalitiesAdapter(Context c) {
         context = c;
-        Init();
+        initMunicipalitiesFromJSON();
     }
 
-    public void Init() {
+    public void initMunicipalitiesFromJSON() {
         municipalities = new ArrayList<>();
         // We read the JSON file and fill the “municipios” ArrayList
         String jsonString = Utils.getJsonFromAssets(context.getApplicationContext(), "covid19cv.json");
