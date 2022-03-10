@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,6 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import es.uv.parcero.models.Municipality;
+import es.uv.parcero.R;
+import es.uv.parcero.utils.Utils;
 
 public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAdapter.ViewHolder> {
     Context context;
@@ -86,7 +90,7 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
         //void onMunicipalityClick(View view);
     }
 
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 

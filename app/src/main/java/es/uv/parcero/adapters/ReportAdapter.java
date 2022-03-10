@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import es.uv.parcero.R;
 
 public class ReportAdapter extends CursorAdapter {
 

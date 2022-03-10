@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +12,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import es.uv.parcero.models.Municipality;
+import es.uv.parcero.R;
+import es.uv.parcero.adapters.ReportAdapter;
+import es.uv.parcero.utils.ReportsDbHelper;
 
 public class MunicipalityDetailsActivity extends AppCompatActivity {
 

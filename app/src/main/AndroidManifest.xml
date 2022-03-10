@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="parcero.uv.es">
+    package="es.uv.parcero">
 
     <application
         android:allowBackup="true"
@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Covid19CV">
         <activity
-            android:name=".MunicipalityDetailsActivity"
+            android:name="es.uv.parcero.activities.MunicipalityDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ReportActivity"
+            android:name="es.uv.parcero.activities.ReportActivity"
             android:exported="false" />
         <activity
-            android:name=".MunicipalitiesActivity"
+            android:name="es.uv.parcero.activities.MunicipalitiesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

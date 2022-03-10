@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.activities;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,6 +17,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import es.uv.parcero.R;
+import es.uv.parcero.models.Report;
+import es.uv.parcero.utils.ReportsDbHelper;
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -48,9 +52,7 @@ public class ReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report);
 
         setupUI();
-
         formatDate();
-
         setupListeners();
 
     }
@@ -146,7 +148,6 @@ public class ReportActivity extends AppCompatActivity {
         bAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: store information in DB
                 try {
                     Report report = createReportFromForm();
                     Log.d("ReportActivity -> bAccept.setOnClickListener -> Created report to insert: ", report.toString());

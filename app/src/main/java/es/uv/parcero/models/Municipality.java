@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.models;
 
 import java.io.Serializable;
 

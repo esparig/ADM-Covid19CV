@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
+
+import es.uv.parcero.adapters.MunicipalitiesAdapter;
+import es.uv.parcero.R;
 
 public class MunicipalitiesActivity extends AppCompatActivity implements MunicipalitiesAdapter.ItemClickListener {
     MunicipalitiesAdapter adapter;

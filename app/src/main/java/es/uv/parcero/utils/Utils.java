@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.utils;
 
 import android.content.Context;
 
@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class Utils {
-    static String getJsonFromAssets(Context context, String fileName) {
+    public static String getJsonFromAssets(Context context, String fileName) {
         String jsonString;
         try {
             InputStream is = context.getAssets().open(fileName);

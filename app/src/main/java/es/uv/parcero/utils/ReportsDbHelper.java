@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,7 +12,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-
+import es.uv.parcero.models.ReportsContract;
+import es.uv.parcero.models.Report;
 
 public class ReportsDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
