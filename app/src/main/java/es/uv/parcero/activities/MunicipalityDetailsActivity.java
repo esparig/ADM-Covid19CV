@@ -2,20 +2,27 @@ package es.uv.parcero.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteCursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
+import java.text.ParseException;
+
 import es.uv.parcero.models.Municipality;
 import es.uv.parcero.R;
 import es.uv.parcero.adapters.ReportAdapter;
+import es.uv.parcero.models.Report;
 import es.uv.parcero.utils.ReportsDbHelper;
 
 public class MunicipalityDetailsActivity extends AppCompatActivity {
@@ -48,14 +55,6 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TextView mun_name;
-        TextView mun_code;
-        TextView cases;
-        TextView incidence;
-        TextView cases_14;
-        TextView incidence_14;
-        TextView deaths;
-        TextView death_rate;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_municipality_details);
@@ -70,7 +69,6 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
         }
         setMunicipalityDetails();
         setupListViewReports();
-
 
     }
 
@@ -114,6 +112,22 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
         reportsAdapter = new ReportAdapter(getApplicationContext(), reportsByMunicipality, 0);
         lvReports = findViewById(R.id.lvReports);
         lvReports.setAdapter(reportsAdapter);
+        lvReports.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Report report = null;
+                SQLiteCursor cr = (SQLiteCursor) parent.getItemAtPosition(position);
+                try {
+                    report = reportsAdapter.getReportFromCursor(cr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Log.d("MunicipalityDetailsActivity -> setupListViewReports.onItemClick: ",  report.toString());
+                Intent i = new Intent(MunicipalityDetailsActivity.this, ReportActivity.class);
+                i.putExtra("Report", (Serializable) report);
+                startActivity(i);
+            }
+        });
 
     }
 }

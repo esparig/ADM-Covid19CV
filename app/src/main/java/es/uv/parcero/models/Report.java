@@ -1,9 +1,10 @@
 package es.uv.parcero.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class Report {
+public class Report implements Serializable {
     private String id;
     private Date symptoms_start_date;
     private boolean fever;
@@ -120,6 +121,58 @@ public class Report {
 
     public String getMunicipality() {
         return municipality;
+    }
+
+    public void setSymptoms_start_date(Date symptoms_start_date) {
+        this.symptoms_start_date = symptoms_start_date;
+    }
+
+    public void setFever(boolean fever) {
+        this.fever = fever;
+    }
+
+    public void setCough(boolean cough) {
+        this.cough = cough;
+    }
+
+    public void setBreath_shortness(boolean breath_shortness) {
+        this.breath_shortness = breath_shortness;
+    }
+
+    public void setFatigue(boolean fatigue) {
+        this.fatigue = fatigue;
+    }
+
+    public void setBody_aches(boolean body_aches) {
+        this.body_aches = body_aches;
+    }
+
+    public void setHeadache(boolean headache) {
+        this.headache = headache;
+    }
+
+    public void setLoss_smell(boolean loss_smell) {
+        this.loss_smell = loss_smell;
+    }
+
+    public void setSore_throat(boolean sore_throat) {
+        this.sore_throat = sore_throat;
+    }
+
+    public void setCongestion(boolean congestion) {
+        this.congestion = congestion;
+    }
+
+    public void setNausea(boolean nausea) {
+        this.nausea = nausea;
+    }
+
+    public void setDiarrhea(boolean diarrhea) {
+        this.diarrhea = diarrhea;
+    }
+
+    public void setClose_contact(boolean close_contact) {
+        this.close_contact = close_contact;
     }
 
     @Override

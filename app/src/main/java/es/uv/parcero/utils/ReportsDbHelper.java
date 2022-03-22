@@ -97,7 +97,7 @@ public class ReportsDbHelper extends SQLiteOpenHelper {
                 "diarrhea = " + report.isDiarrhea() + ", " +
                 "close_contact = " + report.isClose_contact() + ", " +
                 "municipality = '" + report.getMunicipality() + "' " +
-                "WHERE id = " + report.getId());
+                "WHERE id = '" + report.getId() + "'");
     }
 
     public Report getReport(int id) {
@@ -167,7 +167,16 @@ public class ReportsDbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void deleteReport(){
-
+    public boolean deleteReport(String id){
+        SQLiteDatabase db = getWritableDatabase();
+        boolean success = true;
+        try {
+            db.execSQL("DELETE FROM reports WHERE id = '" + id + "'");
+        } catch (Exception e) {
+            Log.e("deleteReport -> Exception", e.toString());
+            success = false;
+        } finally {
+            return success;
+        }
     }
 }

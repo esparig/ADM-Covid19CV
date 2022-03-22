@@ -45,7 +45,9 @@
     <!-- Otros -->
     <string name="opCancel">Operación cancelada</string>
     <string name="opAccept">Un nuevo informe ha sido dado de alta</string>
-
+    <string name="opUpdate">El informe ha sido modificado correctamente</string>
+    <string name="dialog_confirm_delete">¿Está seguro de querer borrar este informe?</string>
+    <string name="opDelete">El informe ha sido borrado</string>
 
 
 </resources>

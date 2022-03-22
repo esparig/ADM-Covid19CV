@@ -10,7 +10,13 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import es.uv.parcero.R;
+import es.uv.parcero.models.Report;
+import es.uv.parcero.models.ReportsContract;
 
 public class ReportAdapter extends CursorAdapter {
 
@@ -43,72 +49,99 @@ public class ReportAdapter extends CursorAdapter {
         ImageView im12 = view.findViewById(R.id.imageView12);
 
         // Get values from Cursor
-        String date = cursor.getString(cursor.getColumnIndexOrThrow("symptoms_start_date"));
-        startDate.setText(date);
+        Report report = null;
+        try {
+            report = getReportFromCursor(cursor);
 
-        im1.setImageResource(R.drawable.ic_fever);
+            startDate.setText( new SimpleDateFormat("dd/MM/yyyy").format(report.getSymptoms_start_date()));
+            im1.setImageResource(R.drawable.ic_fever);
+
+            if (!report.isFever())
+                im1.setAlpha((float) 0.3);
+
+            im2.setImageResource(R.drawable.ic_cough);
+
+            if (!report.isCough())
+                im2.setAlpha((float) 0.3);
+
+            im3.setImageResource(R.drawable.ic_breath_shortness);
+
+            if (!report.isBreath_shortness())
+                im3.setAlpha((float) 0.3);
+
+            im4.setImageResource(R.drawable.ic_fatigue);
+
+            if (!report.isFatigue())
+                im4.setAlpha((float) 0.3);
+
+            im5.setImageResource(R.drawable.ic_body_aches);
+
+            if (!report.isBody_aches())
+                im5.setAlpha((float) 0.3);
+
+            im6.setImageResource(R.drawable.ic_headache);
+
+            if (!report.isHeadache())
+                im6.setAlpha((float) 0.3);
+
+            im7.setImageResource(R.drawable.ic_loss_smell);
+
+            if (!report.isLoss_smell())
+                im7.setAlpha((float) 0.3);
+
+            im8.setImageResource(R.drawable.ic_sore_throat);
+
+            if (!report.isSore_throat())
+                im8.setAlpha((float) 0.3);
+
+            im9.setImageResource(R.drawable.ic_congestion);
+
+            if (!report.isCongestion())
+                im9.setAlpha((float) 0.3);
+
+            im10.setImageResource(R.drawable.ic_nausea);
+
+            if (!report.isNausea())
+                im10.setAlpha((float) 0.3);
+
+            im11.setImageResource(R.drawable.ic_diarrhea);
+
+            if (!report.isDiarrhea())
+                im11.setAlpha((float) 0.3);
+
+            im12.setImageResource(R.drawable.ic_close_contact);
+
+            if (!report.isClose_contact())
+                im12.setAlpha((float) 0.3);
+
+            Log.d("bindView ", report.getId());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Report getReportFromCursor(Cursor cursor) throws ParseException {
+        String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+        String date_string = cursor.getString(cursor.getColumnIndexOrThrow("symptoms_start_date"));
+        Date date = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(date_string);
         boolean fever = cursor.getInt(cursor.getColumnIndexOrThrow("fever")) == 1;
-        if( !fever)
-            im1.setAlpha((float) 0.3);
-
-        im2.setImageResource(R.drawable.ic_cough);
         boolean cough = cursor.getInt(cursor.getColumnIndexOrThrow("cough")) == 1;
-        if( !cough)
-            im2.setAlpha((float) 0.3);
-
-        im3.setImageResource(R.drawable.ic_breath_shortness);
-        boolean breath_shortness = cursor.getInt(cursor.getColumnIndexOrThrow("breath_shortness")) == 1;
-        if( !breath_shortness)
-            im3.setAlpha((float) 0.3);
-
-        im4.setImageResource(R.drawable.ic_fatigue);
+        boolean breath_shortness = cursor.getInt(
+                cursor.getColumnIndexOrThrow("breath_shortness")) == 1;
         boolean fatigue = cursor.getInt(cursor.getColumnIndexOrThrow("fatigue")) == 1;
-        if( !fatigue)
-            im4.setAlpha((float) 0.3);
-
-        im5.setImageResource(R.drawable.ic_body_aches);
         boolean body_aches = cursor.getInt(cursor.getColumnIndexOrThrow("body_aches")) == 1;
-        if( !body_aches)
-            im5.setAlpha((float) 0.3);
-
-        im6.setImageResource(R.drawable.ic_headache);
         boolean headache = cursor.getInt(cursor.getColumnIndexOrThrow("headache")) == 1;
-        if( !headache)
-            im6.setAlpha((float) 0.3);
-
-        im7.setImageResource(R.drawable.ic_loss_smell);
         boolean loss_smell = cursor.getInt(cursor.getColumnIndexOrThrow("loss_smell")) == 1;
-        if( !loss_smell)
-            im7.setAlpha((float) 0.3);
-
-        im8.setImageResource(R.drawable.ic_sore_throat);
         boolean sore_throat = cursor.getInt(cursor.getColumnIndexOrThrow("sore_throat")) == 1;
-        if( !sore_throat)
-            im8.setAlpha((float) 0.3);
-
-        im9.setImageResource(R.drawable.ic_congestion);
         boolean congestion = cursor.getInt(cursor.getColumnIndexOrThrow("congestion")) == 1;
-        if( !congestion)
-            im9.setAlpha((float) 0.3);
-
-        im10.setImageResource(R.drawable.ic_nausea);
         boolean nausea = cursor.getInt(cursor.getColumnIndexOrThrow("nausea")) == 1;
-        if( !nausea)
-            im10.setAlpha((float) 0.3);
-
-        im11.setImageResource(R.drawable.ic_diarrhea);
         boolean diarrhea = cursor.getInt(cursor.getColumnIndexOrThrow("diarrhea")) == 1;
-        if( !diarrhea)
-            im11.setAlpha((float) 0.3);
-
-        im12.setImageResource(R.drawable.ic_close_contact);
         boolean close_contact = cursor.getInt(cursor.getColumnIndexOrThrow("close_contact")) == 1;
-        if( !close_contact)
-            im12.setAlpha((float) 0.3);
+        String municipality = cursor.getString(
+                cursor.getColumnIndexOrThrow(ReportsContract.ReportEntry.MUNICIPALITY));
 
-        Log.d("bindView ", date + ", Fever: " + fever + ", Cough: " + cough);
-
-
-
+        return new Report(id, date, fever, cough, breath_shortness, fatigue, body_aches, headache,
+                loss_smell, sore_throat, congestion, nausea, diarrhea, close_contact, municipality);
     }
 }
