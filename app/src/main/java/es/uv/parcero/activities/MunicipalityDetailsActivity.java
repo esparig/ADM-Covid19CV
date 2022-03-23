@@ -71,7 +71,12 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
         setupListViewReports();
 
     }
-
+    @Override
+    protected void onResume() {
+        Log.d("MunicipalityDetailsActivity -> OnResume", "ENTRA");
+        setupListViewReports();
+        super.onResume();
+    }
     private void setMunicipalityDetails() {
         TextView cases_14;
         TextView mun_name;
