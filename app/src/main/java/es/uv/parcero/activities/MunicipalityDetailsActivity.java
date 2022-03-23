@@ -56,26 +56,25 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(layout.activity_municipality_details);
 
         try {
             Intent intent = getIntent();
             municipality = (Municipality) intent.getSerializableExtra("Municipality");
+            setMunicipalityDetails();
+            setupListViewReports();
 
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("getStringExtra_EX", e + "");
         }
-        setMunicipalityDetails();
-        setupListViewReports();
-
     }
 
     @Override
     protected void onResume() {
+        super.onResume();
         Log.d("MunicipalityDetailsActivity -> OnResume", "executing...");
         setupListViewReports();
-        super.onResume();
-
     }
 
     private void setMunicipalityDetails() {
@@ -87,8 +86,10 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
         TextView deaths;
         TextView mun_code;
         TextView incidence;
-        mun_name = findViewById(id.mun_name);
-        mun_name.setText(municipality.getNameMunicipality());
+        String str = municipality.getNameMunicipality();
+        Log.d("MunicipalityDetails", str);
+        mun_name = (TextView) findViewById(id.mun_name_det);
+        mun_name.setText(str);
 
         mun_code = findViewById((id.mun_code));
         mun_code.setText(String.valueOf(municipality.getCodMunicipality()));
