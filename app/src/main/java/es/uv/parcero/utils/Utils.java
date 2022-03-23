@@ -31,4 +31,6 @@ public class Utils {
     public static Date getDateFromString(String date) throws ParseException {
         return new SimpleDateFormat("dd/MM/yyyy").parse(date);
     }
+
+
 }

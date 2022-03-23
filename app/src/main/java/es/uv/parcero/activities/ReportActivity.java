@@ -78,6 +78,11 @@ public class ReportActivity extends AppCompatActivity {
                 Log.d("ReportActivity -> onCreate - currentMunicipalityName", currentMunicipalityName);
                 municipalityName.setText(currentMunicipalityName);
             }
+            String location = getIntent().getExtras().getString("Location");
+            if (location != null) {
+                Log.d("Report Activity -> onCreate - location", location);
+                municipalityName.setText(location); //TODO: convertir a nombre válido, ej: València -> Valencia
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
