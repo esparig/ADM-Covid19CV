@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.models;
 
 import java.util.Comparator;
 import java.io.Serializable;

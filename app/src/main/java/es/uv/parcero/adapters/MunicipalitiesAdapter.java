@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -20,22 +20,26 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import es.uv.parcero.models.Municipality;
+import es.uv.parcero.R;
+import es.uv.parcero.utils.Utils;
+
 public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAdapter.ViewHolder> implements Filterable {
-    private static ItemClickListener itemClickListener;
     Context context;
+    private static ItemClickListener itemClickListener;
     private ArrayList<Municipality> municipalities; //data to visualize
     private ArrayList<Municipality> municipalities_filtered;
 
     public MunicipalitiesAdapter(Context c) {
         context = c;
-        Init();
+        initMunicipalitiesFromJSON();
     }
 
     public ArrayList<Municipality> getMunicipalities() {
         return municipalities;
     }
-
-    public void Init() {
+    
+    public void initMunicipalitiesFromJSON() {
         municipalities = new ArrayList<>();
         // We read the JSON file and fill the “municipios” ArrayList
         String jsonString = Utils.getJsonFromAssets(context.getApplicationContext(), "covid19cv.json");
@@ -54,12 +58,14 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
                         records.getJSONObject(i).getInt("Defuncions"),
                         records.getJSONObject(i).getString("Taxa de defunció")));
             }
-            Collections.sort(municipalities);
-            municipalities_filtered = municipalities; //copy??
+            for (int i = 0; i < 10; i++) {
+                System.out.println(municipalities.get(i));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+   
 
     // Create new views (invoked by the layout manager)
     @NonNull
@@ -135,7 +141,7 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
         };
     }
 
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 

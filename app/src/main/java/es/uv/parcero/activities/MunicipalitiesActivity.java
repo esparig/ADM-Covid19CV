@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero.activities;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -14,14 +14,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.Serializable;
 import java.util.Collections;
 
+
+import es.uv.parcero.adapters.MunicipalitiesAdapter;
+import es.uv.parcero.R;
 
 public class MunicipalitiesActivity extends AppCompatActivity implements MunicipalitiesAdapter.ItemClickListener {
     MunicipalitiesAdapter adapter;
@@ -33,6 +39,7 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
     private SearchView searchView;
     private Spinner spinnerOrdering;
     private ArrayAdapter<CharSequence> spinnerAdapter;
+    FloatingActionButton addReport;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,10 +68,10 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
         setContentView(R.layout.activity_municipalities);
 
         //Set up the RecyclerView
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        municipalitiesAdapter = new MunicipalitiesAdapter(this);
-        municipalitiesAdapter.setClickListener(MunicipalitiesActivity.this);
-        recyclerView.setAdapter(municipalitiesAdapter);
+        recyclerView = (RecyclerView) findViewById(R.id.rvMunicipalities);
+        adapter = new MunicipalitiesAdapter(this);
+        adapter.setClickListener(MunicipalitiesActivity.this);
+        recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -129,13 +136,27 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
                 //not used
             }
         });
+
+        //Set up Floating Button
+        addReport = findViewById(R.id.fab);
+        addReport.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(MunicipalitiesActivity.this, "Click!", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(MunicipalitiesActivity.this, ReportActivity.class);
+                        startActivity(i);
+                    }
+                }
+        );
+
     }
 
     @Override
     public void onMunicipalityClick(View view, int position) {
-        System.out.println("CLICK!!" + municipalitiesAdapter.getMunicipalities().get(position).toString());
+        Log.d("MunicipalityActivity -> onMunicipalityClick", "CLICK!!" + adapter.getMunicipalities().get(position).toString());
         Intent intent = new Intent(MunicipalitiesActivity.this, MunicipalityDetailsActivity.class);
-        intent.putExtra("Municipality", (Serializable) municipalitiesAdapter.getMunicipalities().get(position));
+        intent.putExtra("Municipality", (Serializable) adapter.getMunicipalities().get(position));
         startActivity(intent);
     }
 }

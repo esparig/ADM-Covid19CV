@@ -1,4 +1,4 @@
-package parcero.uv.es;
+package es.uv.parcero;
 
 import org.junit.Test;
 
