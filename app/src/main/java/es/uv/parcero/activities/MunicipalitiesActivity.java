@@ -28,6 +28,7 @@ import java.util.Collections;
 
 import es.uv.parcero.adapters.MunicipalitiesAdapter;
 import es.uv.parcero.R;
+import es.uv.parcero.models.Municipality;
 
 public class MunicipalitiesActivity extends AppCompatActivity implements MunicipalitiesAdapter.ItemClickListener {
     MunicipalitiesAdapter adapter;
@@ -68,10 +69,10 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
         setContentView(R.layout.activity_municipalities);
 
         //Set up the RecyclerView
-        recyclerView = (RecyclerView) findViewById(R.id.rvMunicipalities);
-        adapter = new MunicipalitiesAdapter(this);
-        adapter.setClickListener(MunicipalitiesActivity.this);
-        recyclerView.setAdapter(adapter);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        municipalitiesAdapter = new MunicipalitiesAdapter(this);
+        municipalitiesAdapter.setClickListener(MunicipalitiesActivity.this);
+        recyclerView.setAdapter(municipalitiesAdapter);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -154,9 +155,9 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
 
     @Override
     public void onMunicipalityClick(View view, int position) {
-        Log.d("MunicipalityActivity -> onMunicipalityClick", "CLICK!!" + adapter.getMunicipalities().get(position).toString());
+        Log.d("MunicipalityActivity -> onMunicipalityClick", "CLICK!!" + municipalitiesAdapter.getMunicipalities().get(position).toString());
         Intent intent = new Intent(MunicipalitiesActivity.this, MunicipalityDetailsActivity.class);
-        intent.putExtra("Municipality", (Serializable) adapter.getMunicipalities().get(position));
+        intent.putExtra("Municipality", (Serializable) municipalitiesAdapter.getMunicipalities().get(position));
         startActivity(intent);
     }
 }

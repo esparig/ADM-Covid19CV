@@ -29,7 +29,6 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
 
     private Municipality municipality;
     private ReportAdapter reportsAdapter;
-    private ListView lvReports;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,14 +42,22 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.open_map:
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + municipality.getNameMunicipality().replace(' ', '+'));
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
-                return true;
+                return openMap();
+            case R.id.insert_report:
+                Intent i = new Intent(MunicipalityDetailsActivity.this, ReportActivity.class);
+                i.putExtra("Municipality name", (Serializable) municipality.getNameMunicipality());
+                startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean openMap() {
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + municipality.getNameMunicipality().replace(' ', '+'));
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+        return true;
     }
 
     @Override
@@ -69,6 +76,14 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
         }
         setMunicipalityDetails();
         setupListViewReports();
+
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d("MunicipalityDetailsActivity -> OnResume", "executing...");
+        setupListViewReports();
+        super.onResume();
 
     }
 
@@ -110,7 +125,7 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
         ReportsDbHelper db = new ReportsDbHelper(getApplicationContext());
         Cursor reportsByMunicipality = db.findReportsByMunicipality(municipality.getNameMunicipality());
         reportsAdapter = new ReportAdapter(getApplicationContext(), reportsByMunicipality, 0);
-        lvReports = findViewById(R.id.lvReports);
+        ListView lvReports = findViewById(R.id.lvReports);
         lvReports.setAdapter(reportsAdapter);
         lvReports.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -124,7 +139,7 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
                 }
                 Log.d("MunicipalityDetailsActivity -> setupListViewReports.onItemClick: ",  report.toString());
                 Intent i = new Intent(MunicipalityDetailsActivity.this, ReportActivity.class);
-                i.putExtra("Report", (Serializable) report);
+                i.putExtra("Report", report);
                 startActivity(i);
             }
         });

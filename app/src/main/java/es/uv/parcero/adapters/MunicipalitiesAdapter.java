@@ -58,9 +58,8 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
                         records.getJSONObject(i).getInt("Defuncions"),
                         records.getJSONObject(i).getString("Taxa de defunció")));
             }
-            for (int i = 0; i < 10; i++) {
-                System.out.println(municipalities.get(i));
-            }
+            Collections.sort(municipalities);
+            municipalities_filtered = municipalities;
         } catch (JSONException e) {
             e.printStackTrace();
         }

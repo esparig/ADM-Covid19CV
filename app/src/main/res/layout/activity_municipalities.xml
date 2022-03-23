@@ -36,7 +36,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -45,7 +45,12 @@
                 android:layout_height="match_parent"
                 android:scrollbars="vertical" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,8 +58,5 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/submit"
         android:src="@drawable/ic_my_icon" />
-        </LinearLayout>
-
-    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

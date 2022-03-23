@@ -73,6 +73,11 @@ public class ReportActivity extends AppCompatActivity {
                 bDelete.setVisibility(View.VISIBLE);
                 setReportValuesUI();
             }
+            String currentMunicipalityName = (String) intent.getSerializableExtra("Municipality name");
+            if (currentMunicipalityName != null) {
+                Log.d("ReportActivity -> onCreate - currentMunicipalityName", currentMunicipalityName);
+                municipalityName.setText(currentMunicipalityName);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
