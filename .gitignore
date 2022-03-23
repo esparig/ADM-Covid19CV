@@ -18,3 +18,13 @@ local.properties
 /app/resources/datastore_search.json
 /build.gradle
 /app/build.gradle
+/.idea
+/.gradle
+/app/build
+build.gradle
+gradle*
+local.properties
+settings.gradle
+/app/.gitignore
+/app/resources/datastore_search.json
+/app/proguard-rules.pro

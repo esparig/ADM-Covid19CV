@@ -37,23 +37,25 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.ArrayList;
 
 import es.uv.parcero.R;
 import es.uv.parcero.adapters.MunicipalitiesAdapter;
 import es.uv.parcero.models.Municipality;
+import es.uv.parcero.utils.GetJSONAsynTask;
 
 public class MunicipalitiesActivity extends AppCompatActivity implements MunicipalitiesAdapter.ItemClickListener {
-    MunicipalitiesAdapter adapter;
-    MunicipalitiesAdapter municipalitiesAdapter;
-    String defaultValue = "Orden por indicencia (desc)";
-    FloatingActionButton addReport;
+    private MunicipalitiesAdapter municipalitiesAdapter;
+    private FloatingActionButton addReport;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Municipality> municipios;
     private SearchManager searchManager;
     private SearchView searchView;
     private Spinner spinnerOrdering;
     private ArrayAdapter<CharSequence> spinnerAdapter;
     private String currentLocation = null;
+    String defaultValue = "Orden por indicencia (desc)";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,17 +83,12 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
 
         setContentView(R.layout.activity_municipalities);
 
+        // Get Json from HTTP GET request
+        GetJSONAsynTask getJSONAsynTask = new GetJSONAsynTask(this);
+        getJSONAsynTask.execute();
+
         //Set GPS
         getGPSLocation();
-
-        //Set up the RecyclerView
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        municipalitiesAdapter = new MunicipalitiesAdapter(this);
-        municipalitiesAdapter.setClickListener(MunicipalitiesActivity.this);
-        recyclerView.setAdapter(municipalitiesAdapter);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
 
         //Set up the Search bar
         searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -173,6 +170,17 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
 
     }
 
+    public void setUpRecyclerView() {
+        //Set up the RecyclerView
+        recyclerView = (RecyclerView) findViewById(R.id.rvMunicipalities);
+        municipalitiesAdapter = new MunicipalitiesAdapter(MunicipalitiesActivity.this, municipios);
+        municipalitiesAdapter.setClickListener(MunicipalitiesActivity.this);
+        recyclerView.setAdapter(municipalitiesAdapter);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(MunicipalitiesActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+    
     public void getGPSLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
@@ -272,5 +280,7 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
         startActivity(intent);
     }
 
-
+    public void setMunicipios(ArrayList<Municipality> municipios) {
+        this.municipios = municipios;
+    }
 }

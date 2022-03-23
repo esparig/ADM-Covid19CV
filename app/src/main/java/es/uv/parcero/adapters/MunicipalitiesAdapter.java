@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import es.uv.parcero.activities.MunicipalitiesActivity;
 import es.uv.parcero.models.Municipality;
 import es.uv.parcero.R;
 import es.uv.parcero.utils.Utils;
@@ -30,15 +31,17 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
     private ArrayList<Municipality> municipalities; //data to visualize
     private ArrayList<Municipality> municipalities_filtered;
 
-    public MunicipalitiesAdapter(Context c) {
+    public MunicipalitiesAdapter(MunicipalitiesActivity c, ArrayList<Municipality> municipalities) {
         context = c;
-        initMunicipalitiesFromJSON();
+        this.municipalities = municipalities;
+        //initMunicipalitiesFromJSON();
     }
 
     public ArrayList<Municipality> getMunicipalities() {
         return municipalities;
     }
     
+    @Deprecated
     public void initMunicipalitiesFromJSON() {
         municipalities = new ArrayList<>();
         // We read the JSON file and fill the “municipios” ArrayList
