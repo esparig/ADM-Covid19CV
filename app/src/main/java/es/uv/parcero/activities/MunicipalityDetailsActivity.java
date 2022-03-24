@@ -12,11 +12,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.text.ParseException;
 
 import es.uv.parcero.R;
@@ -80,13 +83,6 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
-        Log.d("MunicipalityDetailsActivity -> OnResume", "executing...");
-        setupListViewReports();
-    }
-
-    @Override
-    protected void onResume() {
         Log.d("MunicipalityDetailsActivity -> OnResume", "executing...");
         setupListViewReports();
         super.onResume();
@@ -102,9 +98,9 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
         TextView deaths;
         TextView mun_code;
         TextView incidence;
-        
+
         mun_name = (TextView) findViewById(id.mun_name_det);
-        mun_name.setText(municipality.getNameMunicipality();
+        mun_name.setText(municipality.getNameMunicipality());
 
         mun_code = findViewById((id.mun_code));
         mun_code.setText(String.valueOf(municipality.getCodMunicipality()));
@@ -144,7 +140,7 @@ public class MunicipalityDetailsActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                Log.d("MunicipalityDetailsActivity -> setupListViewReports.onItemClick: ",  report.toString());
+                Log.d("MunicipalityDetailsActivity -> setupListViewReports.onItemClick: ", report.toString());
                 Intent i = new Intent(MunicipalityDetailsActivity.this, ReportActivity.class);
                 i.putExtra("Report", report);
                 startActivity(i);

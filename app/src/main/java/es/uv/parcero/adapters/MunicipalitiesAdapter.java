@@ -31,9 +31,10 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
     private ArrayList<Municipality> municipalities; //data to visualize
     private ArrayList<Municipality> municipalities_filtered;
 
-    public MunicipalitiesAdapter(MunicipalitiesActivity c, ArrayList<Municipality> municipalities) {
+    public MunicipalitiesAdapter(MunicipalitiesActivity c, ArrayList<Municipality> municipalities, ArrayList<Municipality> municipalities_filtered) {
         context = c;
         this.municipalities = municipalities;
+        this.municipalities_filtered = municipalities_filtered;
         //initMunicipalitiesFromJSON();
     }
 

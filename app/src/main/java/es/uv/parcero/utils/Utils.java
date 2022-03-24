@@ -21,7 +21,8 @@ public class Utils {
 
     private static String URL = "https://dadesobertes.gva.es/es/api/3/action/datastore_search?resource_id=7fd9a2bf-ffee-4604-907e-643a8009b04e&limit=1000";
             //"https://dadesobertes.gva.es/es/api/3/action/datastore_search?resource_id=382b283c-03fa-433e-9967-9e064e84f936&limit=1000";
-
+    //                                                                                  38e6d3ac-fd77-413e-be72-aed7fa6f13c2
+            //https://dadesobertes.gva.es/api/3/action/package_show?id=38e6d3ac-fd77-413e-be72-aed7fa6f13c2
     public static String getJsonFromAssets(Context context, String fileName) {
         String jsonString;
         try {
@@ -38,12 +39,12 @@ public class Utils {
         return jsonString;
     }
 
-    public static String getJsonFromHttp() {
+    public static String getJsonFromHttp(String url) {
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
         String jsonString;
         try {
-            URL obj = new URL(URL);
+            URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");
             //add request header

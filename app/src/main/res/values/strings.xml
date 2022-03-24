@@ -58,6 +58,8 @@
     <string name="opUpdate">El informe ha sido modificado correctamente</string>
     <string name="dialog_confirm_delete">¿Está seguro de querer borrar este informe?</string>
     <string name="opDelete">El informe ha sido borrado</string>
+    <string name="urlGetId">https://dadesobertes.gva.es/api/3/action/package_show?id=38e6d3ac-fd77-413e-be72-aed7fa6f13c2</string>
+    <string name="urlPrefix">https://dadesobertes.gva.es/es/api/3/action/datastore_search?resource_id=</string>
 
 
 </resources>
