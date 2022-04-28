@@ -11,8 +11,56 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <!-- Strings for fixed text in my app -->
+    <!-- Covid details -->
     <string name="casos_diagnosticados">CASOS DIAGNOSTICADOS</string>
     <string name="acumulado">ACUMULADO</string>
     <string name="fallecidos">PERSONAS FALLECIDAS</string>
     <string name="dias_14">14 DÍAS</string>
+    <string name="incidencia_acumulada">INCIDENCIA ACUMULADA</string>
+    <string name="total">TOTAL</string>
+    <string name="tasa_muertes">TASA DE DEFUNCIÓN</string>
+    <string name="submit" />
+
+    <!-- Strings for spinner (ordering dropdown list) -->
+    <string-array name="ordering">
+
+        <item>Orden alfabético (asc)</item>
+        <item>Orden alfabético (desc)</item>
+        <item>Orden por incidencia (asc)</item>
+        <item>Orden por indicencia (desc)</item>
+
+    </string-array>
+
+    <!-- Covid Report -->
+    <string name="create">ALTA DE NUEVO INFORME</string>
+    <string name="symptoms_date">Fecha de inicio de los síntomas:</string>
+    <string name="date">dd/mm/aaaa</string>
+    <string name="symptoms">Síntomas:</string>
+    <string name="fever">Fiebre o escalofríos</string>
+    <string name="cough">Tos</string>
+    <string name="breath_shortness">Dificultad para respirar</string>
+    <string name="fatigue">Fatiga</string>
+    <string name="body_aches">Dolor muscular/corporal</string>
+    <string name="headache">Dolor de cabeza</string>
+    <string name="loss_smell">Perdida de olfato/gusto</string>
+    <string name="sore_throat">Dolor de garganta</string>
+    <string name="congestion">Congestión nasal</string>
+    <string name="nausea">Nauseas y/o vómitos</string>
+    <string name="diarrhea">Diarrea</string>
+    <string name="contact">¿Ha estado en contacto estrecho con una persona positiva en COVID19?</string>
+    <string name="municipality">Municipio</string>
+    <string name="cancel">Cancelar</string>
+    <string name="accept">Aceptar</string>
+
+    <!-- Otros -->
+    <string name="opCancel">Operación cancelada</string>
+    <string name="opAccept">Un nuevo informe ha sido dado de alta</string>
+    <string name="opUpdate">El informe ha sido modificado correctamente</string>
+    <string name="dialog_confirm_delete">¿Está seguro de querer borrar este informe?</string>
+    <string name="opDelete">El informe ha sido borrado</string>
+    <string name="urlGetId">https://dadesobertes.gva.es/api/3/action/package_show?id=38e6d3ac-fd77-413e-be72-aed7fa6f13c2</string>
+    <string name="urlPrefix">https://dadesobertes.gva.es/es/api/3/action/datastore_search?resource_id=</string>
+    <string name="urlSuffix">&amp;limit=1000</string>
+
+
 </resources>
