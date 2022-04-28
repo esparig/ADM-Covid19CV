@@ -28,3 +28,5 @@ settings.gradle
 /app/.gitignore
 /app/resources/datastore_search.json
 /app/proguard-rules.pro
+/app/resources/datastore_latest.json
+/app/resources/package_show.json

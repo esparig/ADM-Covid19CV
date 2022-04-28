@@ -43,7 +43,7 @@ public class GetJSONAsynTask extends AsyncTask<Void, Void, Void> {
             e.printStackTrace();
         }
         // get json for that id
-        url = context.getResources().getString(R.string.urlPrefix)+id;
+        url = context.getResources().getString(R.string.urlPrefix)+id+context.getResources().getString(R.string.urlSuffix);
         jsonString = Utils.getJsonFromHttp(url);
         try {
             assert jsonString != "";
