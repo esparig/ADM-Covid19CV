@@ -39,7 +39,7 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
     }
 
     public ArrayList<Municipality> getMunicipalities() {
-        return municipalities;
+        return municipalities_filtered;
     }
     
     @Deprecated
@@ -178,6 +178,7 @@ public class MunicipalitiesAdapter extends RecyclerView.Adapter<MunicipalitiesAd
         @Override
         public void onClick(View view) {
             if (itemClickListener != null)
+                getItemId();
                 itemClickListener.onMunicipalityClick(view, getAdapterPosition());
         }
 

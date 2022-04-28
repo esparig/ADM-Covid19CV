@@ -116,8 +116,6 @@ public class MunicipalitiesActivity extends AppCompatActivity implements Municip
             }
         });
 
-        //setUpOrdering();
-
         //Set up Floating Button
         addReport = findViewById(R.id.fab);
         addReport.setOnClickListener(
