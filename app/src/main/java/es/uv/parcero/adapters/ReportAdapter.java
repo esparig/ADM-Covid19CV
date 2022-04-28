@@ -2,6 +2,7 @@ package es.uv.parcero.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,15 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
+
 
 import es.uv.parcero.R;
 import es.uv.parcero.models.Report;
@@ -30,6 +37,7 @@ public class ReportAdapter extends CursorAdapter {
         return inflater.inflate(R.layout.row_report, viewGroup, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
@@ -121,10 +129,13 @@ public class ReportAdapter extends CursorAdapter {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Report getReportFromCursor(Cursor cursor) throws ParseException {
         String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
         String date_string = cursor.getString(cursor.getColumnIndexOrThrow("symptoms_start_date"));
-        Date date = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(date_string);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("E MMM d H:m:s z u", Locale.ENGLISH);
+        ZonedDateTime date = ZonedDateTime.parse(date_string, dtf);
+        //Date date = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").parse(date_string);
         boolean fever = cursor.getInt(cursor.getColumnIndexOrThrow("fever")) == 1;
         boolean cough = cursor.getInt(cursor.getColumnIndexOrThrow("cough")) == 1;
         boolean breath_shortness = cursor.getInt(
@@ -141,7 +152,7 @@ public class ReportAdapter extends CursorAdapter {
         String municipality = cursor.getString(
                 cursor.getColumnIndexOrThrow(ReportsContract.ReportEntry.MUNICIPALITY));
 
-        return new Report(id, date, fever, cough, breath_shortness, fatigue, body_aches, headache,
+        return new Report(id, Date.from(date.toInstant()), fever, cough, breath_shortness, fatigue, body_aches, headache,
                 loss_smell, sore_throat, congestion, nausea, diarrhea, close_contact, municipality);
     }
 }
