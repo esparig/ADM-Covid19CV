@@ -28,7 +28,6 @@ Application for Android devices. Specifically, the application shows the inciden
 * Retrieve the latest dataset from Generalitat Valenciana on starting.
 
 ## Screenshots:
-![Municipality list](app/src/main/assets/screenshots/screenshot-covid19gva-01.jpg)
-![Filtered municipality list](app/src/main/assets/screenshots/screenshot-covid19gva-02.jpg)
-![Municipality details](app/src/main/assets/screenshots/screenshot-covid19gva-03.jpg)
-![Report details](app/src/main/assets/screenshots/screenshot-covid19gva-04.jpg)
+
+![Municipality list](app/src/main/assets/screenshots/screenshot-covid19gva-01.jpg) | ![Filtered municipality list](app/src/main/assets/screenshots/screenshot-covid19gva-02.jpg) | ![Municipality details](app/src/main/assets/screenshots/screenshot-covid19gva-03.jpg) | ![Report details](app/src/main/assets/screenshots/screenshot-covid19gva-04.jpg)
+--|--|--|--
